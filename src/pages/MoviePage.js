@@ -22,7 +22,7 @@ const MoviePage = () => {
     const { data, error } = useSWR(url, fetcher);
     console.log('data: ', data);
 
-    const loading = !data && !error;
+    const [loading, setLoading] = useState(!data && !error);
 
     useEffect(() => {
         if (debounce) {
@@ -40,8 +40,10 @@ const MoviePage = () => {
     const [itemOffset, setItemOffset] = useState(0);
 
     useEffect(() => {
+        setLoading(true);
         if (!data || !data.total_results) return;
         setPageCount(Math.ceil(data.total_results / itemsPerPage));
+        setLoading(false);
     }, [data, itemOffset]);
 
     const handlePageClick = (event) => {
@@ -83,25 +85,6 @@ const MoviePage = () => {
                     renderOnZeroPageCount={null}
                     className="pagination"
                 />
-            </div>
-            <div className="flex items-center justify-center mt-10 gap-x-5 hidden">
-                <span className='cursor-pointer leading-none rounded-lg inline-block hover:bg-primary p-3' onClick={() => nextPage > 1 && setNextPage(nextPage - 1)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                    </svg>
-                </span>
-
-                {new Array(pageCount).fill(0).map((item, index) => (
-                    <span key={index} className={`cursor-pointer leading-none rounded-lg inline-block hover:bg-primary  ${nextPage === index + 1 ? "bg-primary p-3" : "p-2"}`} onClick={() => setNextPage(index + 1)}>{index + 1}</span>
-                ))}
-
-                <span className='cursor-pointer leading-none rounded-lg inline-block hover:bg-primary p-3'
-                    onClick={() => setNextPage(nextPage + 1)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                    </svg>
-
-                </span>
             </div>
         </div>
     );
