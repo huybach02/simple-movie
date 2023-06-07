@@ -47,7 +47,7 @@ function BannerItem({ item }) {
             <div className="absolute left-5 bottom-5 w-full text-white">
                 <h2 className="font-bold text-3xl mb-5">{item.title || item.name}</h2>
                 <div className="flex items-center gap-x-3 mb-8">
-                    <span className="py-2 w-[500px] px-4 border border-white rounded-md truncate">{item.overview}</span>
+                    <span className="py-2 w-[300px] md:w-[500px] px-4 border border-white rounded-md truncate">{item.overview}</span>
                 </div>
                 <Button
                     onClick={() => navigate(`/movies/${item.id}`)}>
