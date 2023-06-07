@@ -4,6 +4,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import "swiper/scss";
 import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper";
+import Button from "../button/Button";
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+
 
 
 const Banner = () => {
@@ -35,6 +39,7 @@ const Banner = () => {
 };
 
 function BannerItem({ item }) {
+    const navigate = useNavigate();
     return (
         <div className="h-full w-full rounded-lg relative">
             <div className="overlay absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.5)] rounded-lg"></div>
@@ -42,9 +47,12 @@ function BannerItem({ item }) {
             <div className="absolute left-5 bottom-5 w-full text-white">
                 <h2 className="font-bold text-3xl mb-5">{item.title || item.name}</h2>
                 <div className="flex items-center gap-x-3 mb-8">
-                    <span className="py-2 px-4 border border-white rounded-md">Action</span>
+                    <span className="py-2 w-[500px] px-4 border border-white rounded-md truncate">{item.overview}</span>
                 </div>
-                <button className="py-3 px-6 rounded-lg bg-primary">Watch Now</button>
+                <Button
+                    onClick={() => navigate(`/movies/${item.id}`)}>
+                    Watch Now
+                </Button>
             </div>
         </div>
     );
