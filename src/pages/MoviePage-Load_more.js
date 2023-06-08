@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { API, fetcher } from '../config';
-import MovieCard from '../components/movie/MovieCard';
-import { useDebounce } from "@uidotdev/usehooks";
-import Button from '../components/button/Button';
+import React, {useEffect, useState} from "react";
+import {API, fetcher} from "../config";
+import MovieCard from "../components/movie/MovieCard";
+import {useDebounce} from "@uidotdev/usehooks";
+import Button from "../components/button/Button";
 import useSWRInfinite from "swr/infinite";
 
 const itemsPerPage = 20;
@@ -17,7 +17,7 @@ const MoviePage = () => {
     const handleFilterChange = (e) => {
         setFilter(e.target.value);
     };
-    const { data, error, size, setSize } = useSWRInfinite(
+    const {data, error, size, setSize} = useSWRInfinite(
         (index) => url.replace("page=1", `page=${index + 1}`),
         fetcher
     );
@@ -25,7 +25,8 @@ const MoviePage = () => {
     const loading = !data && !error;
     const isEmpty = data?.[0]?.results.length === 0;
     const isReachingEnd =
-        isEmpty || (data && data[data.length - 1]?.results.length < itemsPerPage);
+        isEmpty ||
+        (data && data[data.length - 1]?.results.length < itemsPerPage);
     useEffect(() => {
         if (filterDebounce) {
             setUrl(API.getMovieSearch(filterDebounce, nextPage));
@@ -80,12 +81,13 @@ const MoviePage = () => {
                 <Button
                     onClick={() => (isReachingEnd ? {} : setSize(size + 1))}
                     disabled={isReachingEnd}
-                    className={`${isReachingEnd ? "bg-slate-300 cursor-default" : ""}`}
+                    className={`${
+                        isReachingEnd ? "bg-slate-300 cursor-default" : ""
+                    }`}
                 >
                     Load more...
                 </Button>
             </div>
-
         </div>
     );
 };

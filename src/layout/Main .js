@@ -1,7 +1,6 @@
-import React, { Fragment } from 'react';
-import Header from '../layout/Header';
-import { Outlet } from "react-router-dom";
-
+import React, {Fragment} from "react";
+import Header from "../layout/Header";
+import {Outlet} from "react-router-dom";
 
 const Main = () => {
     return (
